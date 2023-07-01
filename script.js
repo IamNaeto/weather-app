@@ -8,28 +8,28 @@ arrowBack = document.querySelector("header i")
 
 let api;
 
-inputField.addEventListener("keyup", e =>{
+inputField.addEventListener("keyup", e => {
     // If user pressed enter btn and input value is valid
-    if(e.key === "Enter" && inputField.value != " "){
+    if (e.key === "Enter" && inputField.value != " ") {
         requestApi(inputField.value)
     }
 });
 
-locationBtn.addEventListener("click", ()=>{
-    if(navigator.geolocation){ //If browser support geolocation api
+locationBtn.addEventListener("click", () => {
+    if (navigator.geolocation) { //If browser support geolocation api
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    }else{
+    } else {
         alert("Your browser do not supportgeolocation api");
     }
 });
 
-function onSuccess(position){
-    const {latitude, longitude} = position.coords; //getting lat and lon of the user device from coords obj
+function onSuccess(position) {
+    const { latitude, longitude } = position.coords; //getting lat and lon of the user device from coords obj
     api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_Key}`;
     fetchData();
 }
 
-function onError(error){
+function onError(error) {
     infoTxt.innerText = error.message;
     infoTxt.classList.add("error");
 }
@@ -37,12 +37,12 @@ function onError(error){
 const API_Key = "c539409f102b073becb05468393fca96"
 
 
-function requestApi(city){
+function requestApi(city) {
     api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_Key}`;
     fetchData()
 }
 
-function fetchData(){
+function fetchData() {
     infoTxt.innerText = "Getting Weather Details...";
     infoTxt.classList.add("pending");
     // getting api response and returning it with parsing into js obj and in another
@@ -50,29 +50,29 @@ function fetchData(){
     fetch(api).then(response => response.json()).then(result => weatherDetails(result))
 }
 
-function weatherDetails(info){
-    if(info.cod == "404"){
+function weatherDetails(info) {
+    if (info.cod == "404") {
         infoTxt.innerText = `${inputField.value} isn't a valid city name`;
         infoTxt.classList.replace("pending", "error");
-    }else{
+    } else {
         // gettind reqired properties value from the info object
         const city = info.name;
         const country = info.sys.country;
-        const {description, id} = info.weather[0];
-        const {feels_like, humidity, temp} = info.main;
+        const { description, id } = info.weather[0];
+        const { feels_like, humidity, temp } = info.main;
 
         // using custom icon according to the id which api returns
-        if(id == 800){
+        if (id == 800) {
             wIcon.src = "img/clear.svg"
-        }else if(id >= 200 && id <= 232){
+        } else if (id >= 200 && id <= 232) {
             wIcon.src = "img/storm.svg"
-        }else if(id >= 600 && id <= 622){
+        } else if (id >= 600 && id <= 622) {
             wIcon.src = "img/snow.svg"
-        }else if(id >= 701 && id <= 781){
+        } else if (id >= 701 && id <= 781) {
             wIcon.src = "img/haze.svg"
-        }else if(id >= 801 && id <= 804){
+        } else if (id >= 801 && id <= 804) {
             wIcon.src = "img/cloud.svg"
-        }else if((id >= 300 && id <= 321) || (id >= 500 && id <= 531)){
+        } else if ((id >= 300 && id <= 321) || (id >= 500 && id <= 531)) {
             wIcon.src = "img/rain.svg"
         }
 
@@ -85,10 +85,10 @@ function weatherDetails(info){
 
         infoTxt.classList.remove("pending", "error");
         wrapper.classList.add("active");
-    }   
+    }
 }
 
 // adding functionality to the arrow back icon
-arrowBack.addEventListener("click", ()=>{
+arrowBack.addEventListener("click", () => {
     wrapper.classList.remove("active");
 })
