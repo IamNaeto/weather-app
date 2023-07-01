@@ -23,7 +23,7 @@ locationBtn.addEventListener("click", ()=>{
 
 function onSuccess(position){
     const {latitude, longitude} = position.coords; //getting lat and lon of the user device from coords obj
-    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_Key}`;
+    api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_Key}`;
     fetchData();
 }
 
@@ -36,7 +36,7 @@ function onError(error){
 
 
 function requestApi(city){
-    api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_Key}`;
+    api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_Key}`;
     fetchData()
 }
 
@@ -53,8 +53,22 @@ function weatherDetails(info){
         infoTxt.innerText = `${inputField.value} isn't a valid city name`;
         infoTxt.classList.replace("pending", "error");
     }else{
+        // gettind reqired properties value from the info object
+        const city = info.name;
+        const country = info.sys.country;
+        const {description, id} = info.weather[0];
+        const {feels_like, humidity, temp} = info.main;
+
+        // passing these values to a particular html element
+        document.querySelector(".temp .numb").innerText = Math.floor(temp);
+        document.querySelector(".weather").innerText = description;
+        document.querySelector(".location span").innerText = `${city}, ${country}`;
+        document.querySelector(".temp .numb-2").innerText = Math.floor(feels_like);
+        document.querySelector(".humidity span").innerText = `${humidity}%`;
+
         infoTxt.classList.remove("pending", "error");
         wrapper.classList.add("active");
+        console.log(info)
     }
     
 }
