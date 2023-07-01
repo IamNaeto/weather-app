@@ -4,6 +4,7 @@ infoTxt = document.querySelector(".info-txt")
 inputField = document.querySelector("input")
 locationBtn = document.querySelector("button")
 wIcon = document.querySelector(".weather-part img")
+arrowBack = document.querySelector("header i")
 
 let api;
 
@@ -33,7 +34,7 @@ function onError(error){
     infoTxt.classList.add("error");
 }
 
-
+const API_Key = "c539409f102b073becb05468393fca96"
 
 
 function requestApi(city){
@@ -84,7 +85,10 @@ function weatherDetails(info){
 
         infoTxt.classList.remove("pending", "error");
         wrapper.classList.add("active");
-        console.log(info)
-    }
-    
+    }   
 }
+
+// adding functionality to the arrow back icon
+arrowBack.addEventListener("click", ()=>{
+    wrapper.classList.remove("active");
+})
