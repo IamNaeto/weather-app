@@ -32,7 +32,7 @@ function onError(error){
     infoTxt.classList.add("error");
 }
 
-const API_Key = "c539409f102b073becb05468393fca96"
+
 
 
 function requestApi(city){
@@ -49,5 +49,12 @@ function fetchData(){
 }
 
 function weatherDetails(info){
-    console.log(info)
+    if(info.cod == "404"){
+        infoTxt.innerText = `${inputField.value} isn't a valid city name`;
+        infoTxt.classList.replace("pending", "error");
+    }else{
+        infoTxt.classList.remove("pending", "error");
+        wrapper.classList.add("active");
+    }
+    
 }
