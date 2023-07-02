@@ -34,7 +34,7 @@ function onError(error) {
     infoTxt.classList.add("error");
 }
 
-const API_Key = "c539409f102b073becb05468393fca96"
+const API_Key = ""
 
 
 function requestApi(city) {
