@@ -1,4 +1,4 @@
-name: CI/CD Workflow
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     env:
@@ -16,15 +16,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Build the App
-        run: |
-          # Replace these commands with the commands to build your app
-          # For example, if you don't have build steps, you can skip this section
-          npm install
-          # Additional build steps if needed
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Deploy all files in the repository root
+          publish_dir: .  # Deploy all files in the repository root
