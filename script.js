@@ -8,7 +8,7 @@ arrowBack = document.querySelector("header i")
 
 let api;
 
-const API_Key = process.env.WEATHER_API_KEY;
+const API_Key = WEATHER_API_KEY;
 
 inputField.addEventListener("keyup", e => {
     // If user pressed enter btn and input value is valid
