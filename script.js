@@ -8,6 +8,8 @@ arrowBack = document.querySelector("header i")
 
 let api;
 
+const API_Key = process.env.WEATHER_API_KEY;
+
 inputField.addEventListener("keyup", e => {
     // If user pressed enter btn and input value is valid
     if (e.key === "Enter" && inputField.value != " ") {
@@ -34,7 +36,7 @@ function onError(error) {
     infoTxt.classList.add("error");
 }
 
-const API_Key = process.env.WEATHER_API_KEY;
+// const API_Key = process.env.WEATHER_API_KEY;
 
 
 function requestApi(city) {
