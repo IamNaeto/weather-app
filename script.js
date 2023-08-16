@@ -34,7 +34,7 @@ function onError(error) {
     infoTxt.classList.add("error");
 }
 
-const API_Key = ""
+const API_Key = process.env.WEATHER_API_KEY;
 
 
 function requestApi(city) {
